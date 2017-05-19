@@ -1,0 +1,85 @@
+priority -50
+# Config
+
+global !p
+def fileNameTitleized(snip):
+	name = snip.fn.split(".")
+	return re.sub(r'[_\-]', '', "".join(name[:-1]).title())
+def specFileNameTitleized(snip):
+	name = snip.fn.split(".")
+	name = "".join(name[:-1]).title()
+	name = re.sub(r'[_\-]', '', name)
+	return re.sub(r'Spec$', '', name)
+endglobal
+
+# Snippets
+
+snippet mod "module ... end"
+module ${1:`!p snip.rv = fileNameTitleized(snip)`}
+	$0
+end
+endsnippet
+
+snippet cla "class ... end"
+class ${1:`!p snip.rv = fileNameTitleized(snip)`}
+	$0
+end
+endsnippet
+
+snippet "\b(de)?f" "def <name>..." r
+def ${1:function_name}${2:(${3:*args})}
+	$0
+end
+endsnippet
+
+snippet rdes "rspec: describe class"
+require "rails_helper"
+
+RSpec.describe `!p snip.rv = specFileNameTitleized(snip)` do
+  $0
+end
+endsnippet
+
+snippet des "rspec: describe block"
+describe "$1" do
+  ${0:${VISUAL:# assertions...}}
+end
+endsnippet
+
+snippet con "rspec: context block"
+context "$1" do
+  ${0:${VISUAL:# assertions...}}
+end
+endsnippet
+
+snippet it "rspec: it block"
+it "$1" do
+  ${0:${VISUAL:# assertions...}}
+end
+endsnippet
+
+snippet fm "rspec: factory method"
+def $1
+  @$1 ||= create(:$1$0)
+end
+endsnippet
+
+snippet rubocopdisable "rubocop disable"
+# rubocop:disable $1
+endsnippet
+
+snippet rubocopenable "rubocop enable"
+# rubocop:enable $1
+endsnippet
+
+snippet ar "attr_reader"
+attr_reader :
+endsnippet
+
+snippet pry "binding.pry"
+binding.pry
+endsnippet
+
+snippet rpry "binding.pry_remote"
+binding.pry_remote
+endsnippet
