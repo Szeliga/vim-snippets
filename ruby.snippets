@@ -26,6 +26,10 @@ class ${1:`!p snip.rv = fileNameTitleized(snip)`}
 end
 endsnippet
 
+snippet cn "Class name"
+`!p snip.rv = specFileNameTitleized(snip)`
+endsnippet
+
 snippet "\b(de)?f" "def <name>..." r
 def ${1:function_name}${2:(${3:*args})}
 	$0
@@ -64,6 +68,14 @@ def $1
 end
 endsnippet
 
+snippet fv "RSpec: Factory variable"
+${2:$1} = create(:$1$0)
+endsnippet
+
+snippet let "RSpec: let"
+let(:$1) { $0 }
+endsnippet
+
 snippet rubocopdisable "rubocop disable"
 # rubocop:disable $1
 endsnippet
@@ -82,4 +94,20 @@ endsnippet
 
 snippet rpry "binding.pry_remote"
 binding.pry_remote
+endsnippet
+
+snippet mv "memoized var"
+@$1 ||= $1
+$0
+endsnippet
+
+snippet @ "ivar"
+@$1 = $1
+$0
+endsnippet
+
+snippet sql "<<~SQL"
+<<~SQL
+	$0
+SQL
 endsnippet
